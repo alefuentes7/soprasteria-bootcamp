@@ -54,13 +54,6 @@ public class ProductoController {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/producto/test")
-    public ResponseEntity<ProductoDTO> getByProductoById(@PathVariable int id) {
-        return productoService.readProductoById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping("/producto")
     public ProductoDTO createProducto(@RequestBody ProductoDTO productoDTO) {
         return productoService.createProducto(productoDTO);
