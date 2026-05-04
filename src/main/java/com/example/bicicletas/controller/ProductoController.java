@@ -25,7 +25,7 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    @GetMapping("/productos")
+    @GetMapping(value = "/productos", produces = "application/json")
     public ResponseEntity<Page<ProductoDTO>> getAllProductos( //en la ? devuelve una lista de productos, no uno solo. El tipo entre <> refleja una colección
             @PageableDefault(size=10) Pageable pageable) {
                 return ResponseEntity.ok(productoService.getAllProductos(pageable));

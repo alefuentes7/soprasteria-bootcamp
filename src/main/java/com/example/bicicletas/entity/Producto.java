@@ -47,6 +47,8 @@ public class Producto {
     private Integer genero;
     @Column(name = "id_subcat")
     private Integer id_subcat;
+    @Column(name = "imagen_url", length = 500)
+    private String imagen_url;
     
 
     public Producto() {
@@ -157,6 +159,14 @@ public class Producto {
 
     public void setId_subcat(Integer id_subcat) {
         this.id_subcat = id_subcat;
+    }
+
+    public String getImagen_url() {
+        return imagen_url;
+    }
+
+    public void setImagen_url(String imagen_url) {
+        this.imagen_url = imagen_url;
     }
 
     
