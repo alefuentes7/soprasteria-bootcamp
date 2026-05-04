@@ -28,9 +28,10 @@ public class BicicletasApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		LOG.info("STARTING THE APPLICATION");
 		SpringApplication.run(BicicletasApplication.class, args);
-		LOG.info("APPLICATION FINISHED");
+		LOG.info("APPLICATION FINISHED"); 
+		
 	}
-
+	//esto no hace falta para la web 
 	@Override
 	public void run(String... args) {
 		LOG.info("EXECUTING: command line runner");
@@ -73,7 +74,7 @@ public class BicicletasApplication implements CommandLineRunner {
 			//case "read" -> testRead();
 			case "create" -> {
 			ProductoDTO dto = new ProductoDTO();
-			dto.setNombre("ProductoPrueba");
+			dto.setNombre("Producto1");
 			dto.setNum_serie("Test-" + System.currentTimeMillis());
 			dto.setFab_com(true);
 			dto.setOferta(false);

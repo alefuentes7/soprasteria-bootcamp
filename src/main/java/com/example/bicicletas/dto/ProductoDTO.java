@@ -19,6 +19,7 @@ public class ProductoDTO {
     private Integer calidad;
     private Integer genero;
     private Integer id_subcat;
+    private String imagen_url;
 
     public ProductoDTO() {
         //Constructor vacio
@@ -127,6 +128,14 @@ public class ProductoDTO {
 
     public void setId_subcat(Integer id_subcat) {
         this.id_subcat = id_subcat;
+    }
+
+    public String getImagen_url() {
+        return imagen_url;
+    }
+
+    public void setImagen_url(String imagen_url) {
+        this.imagen_url = imagen_url;
     }
 
     @Override

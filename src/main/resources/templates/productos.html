@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Bicicletas — Catálogo</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 0 32px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,.35);
+        }
+        nav .brand { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+        nav .brand span { color: #e94560; }
+        nav .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: .9rem;
+            transition: color .2s;
+        }
+        nav .nav-links a:hover { color: #fff; }
+
+        /* ── LAYOUT ── */
+        .page-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        /* ── SIDEBAR ── */
+        aside {
+            width: 220px;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            position: sticky;
+            top: 72px;
+        }
+        aside h3 {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 14px;
+        }
+        .filter-group { margin-bottom: 20px; }
+        .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .88rem;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+        .filter-group label input { accent-color: #e94560; }
+        .filter-title {
+            font-weight: 600;
+            font-size: .85rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        /* ── MAIN CONTENT ── */
+        main { flex: 1; min-width: 0; }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .content-header h1 { font-size: 1.5rem; color: #1a1a2e; }
+        .content-header .meta { font-size: .85rem; color: #666; }
+
+        /* ── PAGINATION BAR ── */
+        .paginacion {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .875rem;
+        }
+        .paginacion a, .paginacion .btn-pag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            border: 1px solid #d0d5dd;
+            text-decoration: none;
+            color: #1a1a2e;
+            background: #fff;
+            transition: background .2s, color .2s;
+            font-weight: 600;
+        }
+        .paginacion a:hover { background: #e94560; color: #fff; border-color: #e94560; }
+        .paginacion .active {
+            background: #e94560;
+            color: #fff;
+            border-color: #e94560;
+        }
+        .paginacion .info { color: #555; margin: 0 4px; }
+
+        /* ── GRID ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+            transition: transform .2s, box-shadow .2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,.13);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 170px;
+            background: #eef0f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-img .placeholder {
+            font-size: 3rem;
+        }
+
+        .badges {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .badge {
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .badge-oferta  { background: #e94560; color: #fff; }
+        .badge-fabcom  { background: #2d6a4f; color: #fff; }
+
+        .card-body {
+            padding: 14px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-ref { font-size: .72rem; color: #aaa; margin-bottom: 4px; }
+        .card-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            background: #f0f2f5;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: .72rem;
+            color: #444;
+        }
+        .tag-linea   { background: #dbeafe; color: #1e40af; }
+        .tag-calidad { background: #fef9c3; color: #854d0e; }
+        .tag-genero  { background: #f3e8ff; color: #6b21a8; }
+
+        .card-details {
+            font-size: .78rem;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+        .card-details span::before { margin-right: 4px; }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #e94560;
+        }
+        .price-old {
+            font-size: .8rem;
+            color: #aaa;
+            text-decoration: line-through;
+        }
+
+        .empty { text-align: center; padding: 60px; color: #888; font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            .page-wrapper { flex-direction: column; }
+            aside { width: 100%; position: static; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="brand">🚲 <span>Bici</span>Shop</div>
+    <div class="nav-links">
+        <a href="/productos">Catálogo</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside>
+        <h3>Filtros</h3>
+
+        <div class="filter-group">
+            <div class="filter-title">Solo en oferta</div>
+            <label><input type="checkbox" disabled> En oferta</label>
+        </div>
+
+        <div class="filter-group">
+            <div class="filter-title">Línea</div>
+            <label><input type="checkbox" disabled> Carretera</label>
+            <label><input type="checkbox" disabled> Montaña</label>
+            <label><input type="checkbox" disabled> Paseo</label>
+        </div>
+
+        <div class="filter-group">
+            <div class="filter-title">Calidad</div>
+            <label><input type="checkbox" disabled> Alta</label>
+            <label><input type="checkbox" disabled> Media</label>
+            <label><input type="checkbox" disabled> Baja</label>
+        </div>
+
+        <div class="filter-group">
+            <div class="filter-title">Género</div>
+            <label><input type="checkbox" disabled> Unisex</label>
+            <label><input type="checkbox" disabled> Hombre</label>
+            <label><input type="checkbox" disabled> Mujer</label>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+        <div class="content-header">
+            <h1>Todos los productos</h1>
+            <span class="meta" th:text="${totalElementos + ' productos'}"></span>
+        </div>
+
+        <!-- PAGINACIÓN SUPERIOR -->
+        <div class="paginacion" style="margin-bottom:20px;">
+            <a th:if="${paginaActual > 0}" th:href="@{/productos(page=${paginaActual - 1})}">&#9664;</a>
+            <th:block th:each="i : ${#numbers.sequence(0, totalPaginas - 1)}">
+                <a th:href="@{/productos(page=${i})}"
+                   th:text="${i + 1}"
+                   th:classappend="${i == paginaActual} ? 'active' : ''"></a>
+            </th:block>
+            <a th:if="${paginaActual + 1 < totalPaginas}" th:href="@{/productos(page=${paginaActual + 1})}">&#9654;</a>
+            <span class="info">Página <strong th:text="${paginaActual + 1}"></strong> / <strong th:text="${totalPaginas}"></strong></span>
+        </div>
+
+        <!-- GRID DE CARDS -->
+        <div class="grid" th:if="${not #lists.isEmpty(productos)}">
+            <div class="card" th:each="p : ${productos}">
+
+                <div class="card-img">
+                    <img th:if="${p.imagen_url != null and !p.imagen_url.isEmpty()}"
+                         th:src="${p.imagen_url}"
+                         th:alt="${p.nombre}">
+                    <span th:unless="${p.imagen_url != null and !p.imagen_url.isEmpty()}" class="placeholder">🚲</span>
+                    <div class="badges">
+                        <span th:if="${p.oferta}"  class="badge badge-oferta">Oferta</span>
+                        <span th:if="${p.fab_com}" class="badge badge-fabcom">Fabricado</span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-ref" th:text="'Ref: ' + ${p.num_serie}"></div>
+                    <div class="card-name" th:text="${p.nombre}"></div>
+
+                    <div class="card-tags">
+                        <!-- Línea: 1=Carretera, 2=Montaña, 3=Paseo -->
+                        <span class="tag tag-linea"
+                              th:text="${p.linea == 1 ? 'Carretera' : (p.linea == 2 ? 'Montaña' : (p.linea == 3 ? 'Paseo' : 'Línea ' + p.linea))}"></span>
+                        <!-- Calidad: 1=Baja, 2=Media, 3=Alta -->
+                        <span class="tag tag-calidad" th:if="${p.calidad != null}"
+                              th:text="${p.calidad == 3 ? 'Calidad: Alta' : (p.calidad == 2 ? 'Calidad: Media' : 'Calidad: Baja')}"></span>
+                        <!-- Género: 1=Unisex, 2=Hombre, 3=Mujer -->
+                        <span class="tag tag-genero" th:if="${p.genero != null}"
+                              th:text="${p.genero == 1 ? 'Unisex' : (p.genero == 2 ? 'Hombre' : (p.genero == 3 ? 'Mujer' : ''))}"></span>
+                    </div>
+
+                    <div class="card-details">
+                        <span th:if="${p.tamano != null and !p.tamano.isEmpty()}">📐 <span th:text="${p.tamano}"></span></span>
+                        <span th:if="${p.peso != null}">⚖️ <span th:text="${p.peso + ' kg'}"></span></span>
+                    </div>
+
+                    <div class="card-footer">
+                        <div>
+                            <div class="price" th:text="'€' + ${#numbers.formatDecimal(p.precio, 1, 2)}"></div>
+                            <div class="price-old" th:if="${p.oferta and p.coste_prod != null}"
+                                 th:text="'PVP: €' + ${#numbers.formatDecimal(p.coste_prod, 1, 2)}"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(productos)}">No hay productos disponibles.</div>
+
+        <!-- PAGINACIÓN INFERIOR -->
+        <div class="paginacion" style="margin-top:24px;" th:if="${totalPaginas > 1}">
+            <a th:if="${paginaActual > 0}" th:href="@{/productos(page=${paginaActual - 1})}">&#9664; Anterior</a>
+            <span class="info">Página <strong th:text="${paginaActual + 1}"></strong> de <strong th:text="${totalPaginas}"></strong></span>
+            <a th:if="${paginaActual + 1 < totalPaginas}" th:href="@{/productos(page=${paginaActual + 1})}">Siguiente &#9654;</a>
+        </div>
+    </main>
+
+</div>
+</body>
+</html>
