@@ -20,6 +20,18 @@ public class ProductoDTO {
     private Integer genero;
     private Integer id_subcat;
 
+    private String imagenUrl;
+
+    // getters / setters
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
+    }
+
+
     public ProductoDTO() {
         //Constructor vacio
     }

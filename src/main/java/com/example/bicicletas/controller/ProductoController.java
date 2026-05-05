@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bicicletas.dto.ProductoDTO;
 import com.example.bicicletas.service.ProductoService;
@@ -14,7 +13,7 @@ import com.example.bicicletas.service.ProductoService;
 //import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api")
 public class ProductoController {
 
     @Autowired
@@ -25,22 +24,6 @@ public class ProductoController {
             @PageableDefault(size=10) Pageable pageable) {
                 return ResponseEntity.ok(productoService.getAllProductos(pageable));
             }
-
-
-         
-        /*@RequestParam(required = false) String nombre,
-        @RequestParam(required = false) String num_serie,
-        @RequestParam(required = false) Boolean fab_com,
-        @RequestParam(required = false) Boolean oferta,
-        @RequestParam(required = false) BigDecimal precio,
-        @RequestParam(required = false) BigDecimal coste_prod,
-        @RequestParam(required = false) String tamano,
-        @RequestParam(required = false) BigDecimal peso,
-        @RequestParam(required = false) Integer linea,
-        @RequestParam(required = false) Integer calidad
-    ) {
-        return ResponseEntity.ok(productoService.getAllProductos());
-    } //luego hay que probar a hacerlo paginable (Pageable pageable) y retornar la lista paginada*/
 
     @GetMapping("/producto/{id}")
     public ResponseEntity<ProductoDTO> getByProductoById(@PathVariable int id) {

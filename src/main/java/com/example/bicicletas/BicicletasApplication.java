@@ -31,6 +31,7 @@ public class BicicletasApplication implements CommandLineRunner {
 		LOG.info("APPLICATION FINISHED");
 	}
 
+
 	@Override
 	public void run(String... args) {
 		LOG.info("EXECUTING: command line runner");
@@ -156,7 +157,7 @@ public class BicicletasApplication implements CommandLineRunner {
 	}*/
 
 
-		
+
 
 
 

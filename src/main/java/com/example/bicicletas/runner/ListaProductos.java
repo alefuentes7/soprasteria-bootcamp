@@ -5,7 +5,8 @@ public class ListaProductos {
         public static void main(String[] args) {
             String url ="jdbc:mysql://127.0.0.1:3306/productos?useSSL=false&serverTimezone=UTC";
             String user = "root";
-            String password = "Alej@ndra1604";
+            //String password = "Alej@ndra1604";
+            String password = "root";
 
             String sql = "SELECT id_producto, nombre, num_serie, precio FROM producto ORDER BY id_producto";
 

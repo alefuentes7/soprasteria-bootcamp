@@ -261,6 +261,8 @@
     <div class="brand">🚲 <span>Bici</span>Shop</div>
     <div class="nav-links">
         <a href="/productos">Catálogo</a>
+        <a href="/productos/new">Añadir Producto</a>
+
     </div>
 </nav>
 
@@ -318,19 +320,16 @@
 
         <!-- GRID DE CARDS -->
         <div class="grid" th:if="${not #lists.isEmpty(productos)}">
-            <div class="card" th:each="p : ${productos}">
-
-                <div class="card-img">
-                    <img th:if="${p.imagen_url != null and !p.imagen_url.isEmpty()}"
-                         th:src="${p.imagen_url}"
-                         th:alt="${p.nombre}">
-                    <span th:unless="${p.imagen_url != null and !p.imagen_url.isEmpty()}" class="placeholder">🚲</span>
-                    <div class="badges">
-                        <span th:if="${p.oferta}"  class="badge badge-oferta">Oferta</span>
-                        <span th:if="${p.fab_com}" class="badge badge-fabcom">Fabricado</span>
-                    </div>
+            <a class="card"
+               th:each="p : ${productos}"
+               th:href="@{/productos/{id}(id=${p.id_producto})}"
+               style="text-decoration: none;">
+                <div>
+                    <span th:if="${p.oferta}" class="badge badge-oferta">Oferta</span>
+                    <span th:if="${p.fab_com}" class="badge badge-fabcom">Fabricado</span>
                 </div>
 
+                <!-- BODY -->
                 <div class="card-body">
                     <div class="card-ref" th:text="'Ref: ' + ${p.num_serie}"></div>
                     <div class="card-name" th:text="${p.nombre}"></div>
