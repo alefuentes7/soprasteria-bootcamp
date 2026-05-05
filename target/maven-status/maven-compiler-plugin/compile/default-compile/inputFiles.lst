@@ -1,0 +1,10 @@
+C:\dev\src\main\java\com\example\bicicletas\BicicletasApplication.java
+C:\dev\src\main\java\com\example\bicicletas\controller\ProductoController.java
+C:\dev\src\main\java\com\example\bicicletas\controller\ProductoViewController.java
+C:\dev\src\main\java\com\example\bicicletas\dto\ProductoDTO.java
+C:\dev\src\main\java\com\example\bicicletas\entity\Formulario.java
+C:\dev\src\main\java\com\example\bicicletas\entity\Producto.java
+C:\dev\src\main\java\com\example\bicicletas\mapper\ProductoMapper.java
+C:\dev\src\main\java\com\example\bicicletas\repository\ProductoRepository.java
+C:\dev\src\main\java\com\example\bicicletas\runner\ListaProductos.java
+C:\dev\src\main\java\com\example\bicicletas\service\ProductoService.java

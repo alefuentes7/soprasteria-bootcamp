@@ -1,0 +1,11 @@
+com\example\bicicletas\mapper\ProductoMapperImpl.class
+com\example\bicicletas\service\ProductoService.class
+com\example\bicicletas\mapper\ProductoMapper.class
+com\example\bicicletas\repository\ProductoRepository.class
+com\example\bicicletas\runner\ListaProductos.class
+com\example\bicicletas\controller\ProductoController.class
+com\example\bicicletas\dto\ProductoDTO.class
+com\example\bicicletas\BicicletasApplication.class
+com\example\bicicletas\entity\Formulario.class
+com\example\bicicletas\controller\ProductoViewController.class
+com\example\bicicletas\entity\Producto.class
