@@ -1,61 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>BiciShop</title>
-    <!-- ton CSS (copie ton <style> ici) -->
-    @{/css/style.css}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚲 Bicicletas — Catálogo</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 
 <body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="brand">🚲 <span>Bici</span>Shop</div>
+        <div class="nav-links">
+            <a th:href="@{/productos}">Catálogo</a>
+            <a th:href="@{/productos/new}">Añadir Producto</a>
+        </div>
+    </nav>
 
-<!-- NAVBAR -->
-<nav>
-    <div class="brand">🚲 <span>Bici</span>Shop</div>
-    <div class="nav-links">
-        <a href="/productos">Catálogo</a>
-        <a href="/productos/new">Añadir Producto</a>
+    <!-- MAIN LAYOUT -->
+    <div class="page-wrapper">
+        <!-- SIDEBAR -->
+        <aside>
+            <h3>Filtros</h3>
+
+            <div class="filter-group">
+                <div class="filter-title">Solo en oferta</div>
+                <label><input type="checkbox" disabled> En oferta</label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">Línea</div>
+                <label><input type="checkbox" disabled> Carretera</label>
+                <label><input type="checkbox" disabled> Montaña</label>
+                <label><input type="checkbox" disabled> Paseo</label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">Calidad</div>
+                <label><input type="checkbox" disabled> Alta</label>
+                <label><input type="checkbox" disabled> Media</label>
+                <label><input type="checkbox" disabled> Baja</label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-title">Género</div>
+                <label><input type="checkbox" disabled> Unisex</label>
+                <label><input type="checkbox" disabled> Hombre</label>
+                <label><input type="checkbox" disabled> Mujer</label>
+            </div>
+        </aside>
+
+        <!-- CONTENU DYNAMIQUE -->
+        <main>
+            <div th:replace="~{${view} :: content}"></div>
+        </main>
+
     </div>
-</nav>
-
-<div class="page-wrapper">
-    <!-- SIDEBAR -->
-    <aside>
-        <h3>Filtros</h3>
-
-        <div class="filter-group">
-            <div class="filter-title">Solo en oferta</div>
-            <label><input type="checkbox" disabled> En oferta</label>
-        </div>
-
-        <div class="filter-group">
-            <div class="filter-title">Línea</div>
-            <label><input type="checkbox" disabled> Carretera</label>
-            <label><input type="checkbox" disabled> Montaña</label>
-            <label><input type="checkbox" disabled> Paseo</label>
-        </div>
-
-        <div class="filter-group">
-            <div class="filter-title">Calidad</div>
-            <label><input type="checkbox" disabled> Alta</label>
-            <label><input type="checkbox" disabled> Media</label>
-            <label><input type="checkbox" disabled> Baja</label>
-        </div>
-
-        <div class="filter-group">
-            <div class="filter-title">Género</div>
-            <label><input type="checkbox" disabled> Unisex</label>
-            <label><input type="checkbox" disabled> Hombre</label>
-            <label><input type="checkbox" disabled> Mujer</label>
-        </div>
-    </aside>
-
-    <!-- ✅ CONTENU DYNAMIQUE -->
-    <main th:replace="${content}">
-        <!-- contenu remplacé ici -->
-    </main>
-
-</div>
 
 </body>
 </html>

@@ -1,30 +1,25 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${producto.nombre}">Detalle Producto</title>
-</head>
-<body>
+<div th:fragment="content">
 
-<a href="/productos">⬅ Volver al catálogo</a>
+    <h1>Detalle Producto</h1>
 
-<h1 th:text="${producto.nombre}"></h1>
+    <h3 th:text="${producto.nombre}"></h3>
 
-<p><strong>Precio:</strong>
+    <p><strong>Precio:</strong>
     <span th:text="'€ ' + ${producto.precio}"></span>
-</p>
+    </p>
 
-<p><strong>Referencia:</strong>
-    <span th:text="${producto.num_serie}"></span>
-</p>
+    <p><strong>Referencia:</strong>
+        <span th:text="${producto.num_serie}"></span>
+    </p>
 
-<p th:if="${producto.oferta}">
-    🔥 En oferta
-</p>
+    <p th:if="${producto.oferta}">
+        🔥 En oferta
+    </p>
 
-<p th:if="${producto.peso != null}">
-    ⚖️ Peso: <span th:text="${producto.peso + ' kg'}"></span>
-</p>
+    <p th:if="${producto.peso != null}">
+        ⚖️ Peso: <span th:text="${producto.peso + ' kg'}"></span>
+    </p>
 
-</body>
-</html>
+    <a href="/productos">⬅ Volver al catálogo</a>
+
+</div>

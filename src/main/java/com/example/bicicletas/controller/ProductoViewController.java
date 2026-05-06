@@ -1,6 +1,6 @@
 package com.example.bicicletas.controller;
 
-
+import com.example.bicicletas.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.bicicletas.dto.ProductoDTO;
-import com.example.bicicletas.service.ProductoService;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class ProductoViewController {
     private ProductoService productoService;
 
     // Lista de productos
-    @GetMapping
+    @GetMapping()
     public String mostrarProductos(
             @PageableDefault(size = 10) Pageable pageable,
             Model model) {
@@ -39,25 +38,33 @@ public class ProductoViewController {
         model.addAttribute("totalPaginas", page.getTotalPages());
         model.addAttribute("paginaActual", page.getNumber());
 
-        return "productos"; // productos.html
+        model.addAttribute("view", "productos");
+
+        return "layout";
     }
+
 
     // DÉTAIL
     @GetMapping("/{id}")
     public String detalleProducto(@PathVariable Integer id, Model model) {
 
         Optional<ProductoDTO> productoOpt = productoService.readProductoById(id);
+
         if (productoOpt.isEmpty()) {
-            return "redirect:/productos"; // ou une page 404
+            return "redirect:/productos"; // ou page 404
         }
+
         model.addAttribute("producto", productoOpt.get());
-        return "producto-detalle"; // producto-detalle.html
+        model.addAttribute("view", "producto-detalle");
+
+        return "layout";
     }
 
-    // Mostrar formulario
     @GetMapping("/new")
-    public String mostrarFormulario() {
-        return "anadir-producto";
+    public String nuevo(Model model) {
+        model.addAttribute("view", "anadir-producto");
+
+        return "layout";
     }
 
     // Anadir Producto
@@ -98,7 +105,6 @@ public class ProductoViewController {
 
         return "redirect:/productos";
     }
-
 
 }
 
